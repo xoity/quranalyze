@@ -16,12 +16,11 @@ TOTAL_SURAHS: Final[int] = 114
 DEFAULT_QURANJSON_PATH: Final[str] = "./quranjson/source/surah"
 """Default path to quranjson dataset directory containing surah JSON files."""
 
-# Expected JSON structure keys
-SURAH_NUMBER_KEY: Final[str] = "number"
+# Expected JSON structure keys (quranjson format)
+SURAH_NUMBER_KEY: Final[str] = "index"
 SURAH_NAME_KEY: Final[str] = "name"
-AYAHS_KEY: Final[str] = "ayahs"
-AYAH_NUMBER_KEY: Final[str] = "numberInSurah"
-AYAH_TEXT_KEY: Final[str] = "text"
+VERSE_KEY: Final[str] = "verse"  # Dictionary of verse_N: text
+COUNT_KEY: Final[str] = "count"  # Number of verses
 
 # Normalization settings
 NORMALIZE_HAMZA: Final[bool] = True

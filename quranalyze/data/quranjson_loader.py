@@ -10,13 +10,12 @@ from pathlib import Path
 from typing import Any, Optional
 
 from ..config import (
-    AYAH_NUMBER_KEY,
-    AYAH_TEXT_KEY,
-    AYAHS_KEY,
+    COUNT_KEY,
     DEFAULT_QURANJSON_PATH,
     SURAH_NAME_KEY,
     SURAH_NUMBER_KEY,
     TOTAL_SURAHS,
+    VERSE_KEY,
 )
 from ..core.ayah import Ayah
 from ..core.surah import Surah
@@ -67,30 +66,27 @@ class QuranJsonLoader:
             raise DataValidationError(f"Missing key: {SURAH_NUMBER_KEY}")
         if SURAH_NAME_KEY not in data:
             raise DataValidationError(f"Missing key: {SURAH_NAME_KEY}")
-        if AYAHS_KEY not in data:
-            raise DataValidationError(f"Missing key: {AYAHS_KEY}")
+        if VERSE_KEY not in data:
+            raise DataValidationError(f"Missing key: {VERSE_KEY}")
+        if COUNT_KEY not in data:
+            raise DataValidationError(f"Missing key: {COUNT_KEY}")
         
-        # Validate surah number
-        if data[SURAH_NUMBER_KEY] != surah_number:
+        # Validate surah number (index is 0-padded string like "001")
+        expected_index = f"{surah_number:03d}"
+        if data[SURAH_NUMBER_KEY] != expected_index:
             raise DataValidationError(
-                f"Surah number mismatch: expected {surah_number}, "
+                f"Surah number mismatch: expected {expected_index}, "
                 f"got {data[SURAH_NUMBER_KEY]}"
             )
         
-        # Validate ayahs structure
-        if not isinstance(data[AYAHS_KEY], list):
-            raise DataValidationError("Ayahs must be a list")
-        if not data[AYAHS_KEY]:
-            raise DataValidationError("Surah must contain at least one ayah")
+        # Validate verses structure
+        if not isinstance(data[VERSE_KEY], dict):
+            raise DataValidationError("Verses must be a dictionary")
+        if not data[VERSE_KEY]:
+            raise DataValidationError("Surah must contain at least one verse")
         
-        # Validate each ayah
-        for i, ayah_data in enumerate(data[AYAHS_KEY]):
-            if not isinstance(ayah_data, dict):
-                raise DataValidationError(f"Ayah {i} is not a dictionary")
-            if AYAH_NUMBER_KEY not in ayah_data:
-                raise DataValidationError(f"Ayah {i} missing key: {AYAH_NUMBER_KEY}")
-            if AYAH_TEXT_KEY not in ayah_data:
-                raise DataValidationError(f"Ayah {i} missing key: {AYAH_TEXT_KEY}")
+        # Note: verse count may not match exactly because some surahs have verse_0 (Bismillah)
+        # We'll validate that we have the expected verses when loading
     
     def load_surah(self, surah_number: int) -> Surah:
         """
@@ -126,13 +122,22 @@ class QuranJsonLoader:
         # Validate data structure
         self._validate_surah_data(data, surah_number)
         
-        # Extract ayahs
+        # Extract ayahs from verse dictionary
+        # Note: Some surahs have verse_0 (Bismillah), which we skip
+        # as it's not counted as an ayah in the official numbering
         ayahs = []
-        for ayah_data in data[AYAHS_KEY]:
+        verse_dict = data[VERSE_KEY]
+        expected_count = data[COUNT_KEY]
+        
+        for i in range(1, expected_count + 1):
+            verse_key = f"verse_{i}"
+            if verse_key not in verse_dict:
+                raise DataValidationError(f"Missing {verse_key} in surah {surah_number}")
+            
             ayah = Ayah(
                 surah_number=surah_number,
-                ayah_number=ayah_data[AYAH_NUMBER_KEY],
-                text=ayah_data[AYAH_TEXT_KEY],
+                ayah_number=i,
+                text=verse_dict[verse_key],
             )
             ayahs.append(ayah)
         

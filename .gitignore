@@ -42,3 +42,6 @@ quranjson/
 # OS
 .DS_Store
 Thumbs.db
+
+*_snapshot.json
+*.png
