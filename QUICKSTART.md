@@ -14,7 +14,7 @@ That's it! Only one dependency.
 
 ```bash
 # Clone the quranjson dataset
-git clone https://github.com/risan/quran-json.git
+git clone https://github.com/semarketir/quranjson.git
 ```
 
 ## Step 3: Run the Example
@@ -24,7 +24,7 @@ git clone https://github.com/risan/quran-json.git
 cd quranalyze
 
 # Run the example script
-python examples/basic_usage.py --data-path ../quran-json/source/surah
+python examples/basic_usage.py --data-path ../quranjson/source/surah
 ```
 
 ## Step 4: Write Your Own Analysis
@@ -35,7 +35,7 @@ Create a file `my_analysis.py`:
 from quranalyze import Corpus
 
 # Initialize corpus
-corpus = Corpus("./quran-json/source/surah")
+corpus = Corpus("./quranjson/source/surah")
 corpus.build()
 
 # Get statistics
@@ -70,7 +70,7 @@ from quranalyze import Corpus
 from quranalyze.visualization.matplotlib_3d import Matplotlib3DVisualizer
 
 # Load corpus
-corpus = Corpus("./quran-json/source/surah")
+corpus = Corpus("./quranjson/source/surah")
 corpus.build()
 
 # Get some words

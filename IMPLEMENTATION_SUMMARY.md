@@ -172,7 +172,7 @@ from quranalyze import Corpus
 from quranalyze.visualization.matplotlib_3d import Matplotlib3DVisualizer
 
 # 1. Load quranjson data
-corpus = Corpus("./quran-json/source/surah")
+corpus = Corpus("./quranjson/source/surah")
 corpus.build()
 
 # 2. Basic statistics
@@ -209,11 +209,11 @@ To test the framework:
 pip install matplotlib
 
 # Clone quranjson dataset
-git clone https://github.com/risan/quran-json.git
+git clone https://github.com/semarketir/quranjson.git
 
 # Run example
 cd quranalyze
-python examples/basic_usage.py --data-path ../quran-json/source/surah
+python examples/basic_usage.py --data-path ../quranjson/source/surah
 ```
 
 ## Design Principles Followed

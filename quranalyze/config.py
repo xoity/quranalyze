@@ -13,7 +13,7 @@ TOTAL_SURAHS: Final[int] = 114
 """Total number of surahs in the Quran."""
 
 # Data source configuration
-DEFAULT_QURANJSON_PATH: Final[str] = "./quran-json/source/surah"
+DEFAULT_QURANJSON_PATH: Final[str] = "./quranjson/source/surah"
 """Default path to quranjson dataset directory containing surah JSON files."""
 
 # Expected JSON structure keys

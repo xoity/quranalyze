@@ -37,7 +37,7 @@ dist/
 htmlcov/
 
 # Data (should be cloned separately)
-quran-json/
+quranjson/
 
 # OS
 .DS_Store

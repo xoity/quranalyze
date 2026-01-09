@@ -16,7 +16,7 @@ Main components:
 Usage:
     from quranalyze import Corpus
     
-    corpus = Corpus("path/to/quran-json/source/surah")
+    corpus = Corpus("path/to/quranjson/source/surah")
     corpus.build()
     
     print(f"Total words: {corpus.total_words()}")

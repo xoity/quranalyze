@@ -109,8 +109,8 @@ class QuranJsonLoader:
         if surah_number < 1 or surah_number > TOTAL_SURAHS:
             raise DataLoadError(f"Invalid surah number: {surah_number}")
         
-        # Construct file path (assuming files are named 1.json, 2.json, etc.)
-        file_path = self.data_path / f"{surah_number}.json"
+        # Construct file path (files are named surah_1.json, surah_2.json, etc.)
+        file_path = self.data_path / f"surah_{surah_number}.json"
         
         if not file_path.exists():
             raise DataLoadError(f"Surah file not found: {file_path}")
@@ -197,7 +197,7 @@ class QuranJsonLoader:
         }
         
         for surah_number in range(1, TOTAL_SURAHS + 1):
-            file_path = self.data_path / f"{surah_number}.json"
+            file_path = self.data_path / f"surah_{surah_number}.json"
             
             if not file_path.exists():
                 results["missing_surahs"].append(surah_number)

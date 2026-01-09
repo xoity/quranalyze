@@ -9,20 +9,15 @@ This script demonstrates the fundamental capabilities of the framework:
 5. Simple 3D visualization
 
 Prerequisites:
-- Clone the quran-json repository: https://github.com/risan/quran-json
+- Clone the quranjson repository: https://github.com/semarketir/quranjson
 - Install matplotlib: pip install matplotlib
 
 Usage:
-    python basic_usage.py --data-path /path/to/quran-json/source/surah
+    python basic_usage.py --data-path /path/to/quranjson/source/surah
 """
 
 import argparse
-import sys
 from pathlib import Path
-
-# Add parent directory to path if running as script
-if __name__ == "__main__":
-    sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from quranalyze import Corpus
 from quranalyze.visualization.matplotlib_3d import Matplotlib3DVisualizer
@@ -54,11 +49,11 @@ def main(data_path: str) -> None:
     except Exception as e:
         print(f"✗ Failed to build corpus: {e}")
         print()
-        print("Make sure you have cloned the quran-json repository:")
-        print("  git clone https://github.com/risan/quran-json.git")
+        print("Make sure you have cloned the quranjson repository:")
+        print("  git clone https://github.com/semarketir/quranjson.git")
         print()
         print("Then run this script with the correct path:")
-        print("  python basic_usage.py --data-path ./quran-json/source/surah")
+        print("  python basic_usage.py --data-path ./quranjson/source/surah")
         return
     
     # Step 2: Display corpus statistics
@@ -118,7 +113,7 @@ def main(data_path: str) -> None:
     print("-" * 60)
     
     exporter = SnapshotExporter(corpus)
-    snapshot_path = "./examples/corpus_snapshot.json"
+    snapshot_path = "corpus_snapshot.json"
     
     try:
         exporter.export_full_snapshot(
@@ -151,7 +146,7 @@ def main(data_path: str) -> None:
         )
         
         # Save figure
-        output_path = "./examples/word_distribution_3d.png"
+        output_path = "word_distribution_3d.png"
         viz.save(output_path, dpi=150, bbox_inches='tight')
         print(f"✓ Visualization saved to: {output_path}")
         
@@ -187,8 +182,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--data-path",
         type=str,
-        default="./quran-json/source/surah",
-        help="Path to quranjson surah directory (default: ./quran-json/source/surah)"
+        default="./quranjson/source/surah",
+        help="Path to quranjson surah directory (default: ./quranjson/source/surah)"
     )
     
     args = parser.parse_args()

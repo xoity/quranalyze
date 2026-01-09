@@ -18,7 +18,7 @@ Any conclusions drawn beyond the displayed data are the responsibility of the us
 
 ## quranalyze
 
-A research-grade Python framework for observational analysis of the Quran using the [quranjson](https://github.com/risan/quran-json) dataset.
+A research-grade Python framework for observational analysis of the Quran using the [quranjson](https://github.com/semarketir/quranjson) dataset.
 
 ## Overview
 
@@ -62,7 +62,7 @@ cd quranalyze
 pip install matplotlib  # Only external dependency
 
 # Clone the quranjson dataset
-git clone https://github.com/risan/quran-json.git
+git clone https://github.com/semarketir/quranjson.git
 ```
 
 ## Quick Start
@@ -72,7 +72,7 @@ from quranalyze import Corpus
 from quranalyze.visualization.matplotlib_3d import Matplotlib3DVisualizer
 
 # Load and build corpus
-corpus = Corpus("./quran-json/source/surah")
+corpus = Corpus("./quranjson/source/surah")
 corpus.build()
 
 # Basic statistics
@@ -259,7 +259,7 @@ MIT
 
 ## Acknowledgments
 
-- Data source: [quranjson](https://github.com/risan/quran-json) by Risan Bagja Pradana
+- Data source: [quranjson](https://github.com/semarketir/quranjson) by semarketir
 - Buckwalter transliteration scheme
 - Arabic text processing conventions
 
